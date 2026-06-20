@@ -1,10 +1,11 @@
-import react from "react";
-const About = () => {
-  return (
-    <div classname>
-      About Section
-    </div>
-  )
-}
-export default About;
+import React from "react";
 
+const Contact = () => {
+  return (
+    <div className="w-full h-screen">
+      Contact
+    </div>
+  );
+};
+
+export default Contact;

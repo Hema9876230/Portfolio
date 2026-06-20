@@ -1,9 +1,11 @@
-import react from "react";
+import React from "react";
+
 const Experience = () => {
   return (
-    <div classname>
+    <div className="w-full h-screen">
       Experience
     </div>
-  )
-}
+  );
+};
+
 export default Experience;
