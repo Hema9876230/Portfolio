@@ -12,8 +12,8 @@ export default function OverlayMenu({ isOpen, onClose }) {
     "About",
     "Skills",
     "Projects",
-    "Experience",
-    "Testimonials",
+    //"Experience",
+    //"Testimonials",
     "Contact",
   ];
 

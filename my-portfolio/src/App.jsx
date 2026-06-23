@@ -3,8 +3,8 @@ import Home from './section/Home';
 import About from './section/About';
 import Skill from './section/Skill';
 import Projects from './section/Projects';
-import Experience from './section/Experience';
-import Testimonial from './section/Testimonial';
+//import Experience from './section/Experience';
+//import Testimonial from './section/Testimonial';
 import Contact from './section/Contact';
 import Footer from './section/Footer';
 //import ParticlesBackground from './components/ParticlesBackground';
@@ -20,8 +20,8 @@ export default function App() {
       <About />
       <Skill />
       <Projects />
-      <Experience />
-      <Testimonial />
+      {/*<Experience /> */}
+     {/* <Testimonial />*/}
       <Contact />
       <Footer />
     </div>

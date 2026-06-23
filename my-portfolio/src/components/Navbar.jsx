@@ -68,7 +68,7 @@ export default function Navbar() {
           />
 
           <div className="hidden sm:block text-xl font-bold text-white">
-            Gaurav
+            Hema
           </div>
         </div>
 
