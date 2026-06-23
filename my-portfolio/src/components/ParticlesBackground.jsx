@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from "react";
 
 export default function ParticlesBackground() {
@@ -10,14 +11,14 @@ export default function ParticlesBackground() {
     let particlesArray = [];
     const particlesCount = 50;
 
-    const colors = ["rgba(255, 255, 255, 0.7)"];
+    const colors = ["rgba(255,255,255,0.7)"];
 
     class Particle {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.radius = Math.random() * 3 + 1;
-        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.color = colors[0];
         this.speedX = Math.random() * 1 - 0.5;
         this.speedY = Math.random() * 1 - 0.5;
       }
@@ -36,11 +37,11 @@ export default function ParticlesBackground() {
         this.y += this.speedY;
 
         if (this.x < 0 || this.x > canvas.width) {
-          this.speedX = -this.speedX;
+          this.speedX *= -1;
         }
 
         if (this.y < 0 || this.y > canvas.height) {
-          this.speedY = -this.speedY;
+          this.speedY *= -1;
         }
 
         this.draw();
@@ -55,21 +56,26 @@ export default function ParticlesBackground() {
       }
     }
 
-    function handleResize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    function resizeCanvas() {
+      const parent = canvas.parentElement;
+
+      canvas.width = parent.offsetWidth;
+      canvas.height = parent.offsetHeight;
+
       createParticles();
     }
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
 
     let animationId;
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      particlesArray.forEach((particle) => particle.update());
+      particlesArray.forEach((particle) => {
+        particle.update();
+      });
 
       animationId = requestAnimationFrame(animate);
     }
@@ -78,14 +84,15 @@ export default function ParticlesBackground() {
 
     return () => {
       cancelAnimationFrame(animationId);
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", resizeCanvas);
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed top-0 left-0 w-full h-full pointer-events-none z-0"
+      className="absolute inset-0 w-full h-full pointer-events-none z-0"
     />
   );
 }
+
