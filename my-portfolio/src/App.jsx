@@ -4,7 +4,7 @@ import About from './section/About';
 import Skill from './section/Skill';
 import Projects from './section/Projects';
 //import Experience from './section/Experience';
-//import Testimonial from './section/Testimonial';
+import Achievement from './section/Achievement';
 import Contact from './section/Contact';
 import Footer from './section/Footer';
 //import ParticlesBackground from './components/ParticlesBackground';
@@ -21,7 +21,7 @@ export default function App() {
       <Skill />
       <Projects />
       {/*<Experience /> */}
-     {/* <Testimonial />*/}
+      <Achievement />
       <Contact />
       <Footer />
     </div>
