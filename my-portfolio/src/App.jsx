@@ -3,7 +3,6 @@ import Home from './section/Home';
 import About from './section/About';
 import Skill from './section/Skill';
 import Projects from './section/Projects';
-//import Experience from './section/Experience';
 import Achievement from './section/Achievement';
 import Contact from './section/Contact';
 import Footer from './section/Footer';
@@ -20,7 +19,6 @@ export default function App() {
       <About />
       <Skill />
       <Projects />
-      {/*<Experience /> */}
       <Achievement />
       <Contact />
       <Footer />

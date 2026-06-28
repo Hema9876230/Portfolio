@@ -7,10 +7,10 @@ import { motion, useScroll, AnimatePresence } from "framer-motion";
 // Importing project images (desktop & mobile versions)
 import img1 from "../assets/img1.JPG";
 import img2 from "../assets/img2.JPG";
-import img3 from "../assets/img3.JPG";
+//import img3 from "../assets/img3.JPG";
 import photo1 from "../assets/photo1.JPG";
 import photo2 from "../assets/photo2.PNG";
-import photo3 from "../assets/photo3.png";
+//import photo3 from "../assets/photo3.png";
 
 const MH3 = motion.h3; 
 // Shortcut for <motion.h3> for easier typing
@@ -46,23 +46,24 @@ export default function Projects() {
   const projects = React.useMemo(
     () => [
       {
-        title: "nk studio",
-        link: "https://www.nk.studio/",
+        title: "Hirelens AI",
+        link: "https://github.com/Hema9876230/Hirelens-AI",
         bgColor: "#0d4d3d",
         image: isMobile ? photo1 : img1, // Mobile vs desktop image
       },
       {
-        title: "Gamily",
-        link: "https://gamilyapp.com/",
+        title: "Tutorly",
+        link: "https://github.com/Hema9876230/Tutorly",
         bgColor: "#3884d3",
         image: isMobile ? photo2 : img2,
       },
-      {
+      /*{
         title: "Hungry Tiger",
         link: "https://www.eathungrytiger.com/",
         bgColor: "#dc9317",
         image: isMobile ? photo3 : img3,
       },
+      */
     ],
     [isMobile] 
     // Memoize to prevent recalculating unless screen size changes
