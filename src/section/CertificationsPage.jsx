@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import PageShell from "./PageShell";
 import dbmsCertificate from "../assets/dbms-certificate.pdf";
-import nptelCertificate from "../assets/pythondatascience.pdf";
+import nptelCertificate from "../assets/Pythondatascience.pdf";
 
 const certifications = [
   {
