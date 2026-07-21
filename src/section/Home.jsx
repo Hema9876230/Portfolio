@@ -5,6 +5,7 @@ import avatar from "../assets/avator.png";
 import { FaXTwitter, FaLinkedinIn, FaGithub } from "react-icons/fa6";
 import { FaYoutube, FaInstagram } from "react-icons/fa6";
 import ParticleBackground from "../components/ParticlesBackground";
+import Resume from "../assets/Resume.pdf";
 
 const socials = [ 
   { Icon: FaXTwitter, label: "X", href: "https://x.com/_hemarani" },
@@ -154,7 +155,7 @@ const Home = React.forwardRef((props, ref) => {
                 View My Work
               </a>
               <a
-                href="/Resume.pdf"
+                href={Resume}
                 download
                 className="px-6 py-3 rounded-full text-lg font-medium text-black bg-white 
                 hover:bg-gray-200 shadow-lg hover:scale-105 transition-all"

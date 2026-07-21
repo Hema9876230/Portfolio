@@ -2,7 +2,8 @@ import { motion } from "framer-motion";
 import PageShell from "./PageShell";
 import dbmsCertificate from "../assets/dbms-certificate.pdf";
 import nptelCertificate from "../assets/Pythondatascience.pdf";
-
+import iotCertificate from "../assets/iot.pdf";
+import oracleAICertificate from "../assets/eCertificate.pdf";
 const certifications = [
   {
     icon: "🐍",
@@ -18,17 +19,21 @@ const certifications = [
       "Covers SQL, database design, normalization, ER modeling, transactions, and query optimization.",
     link: dbmsCertificate,
   },
-  // Uncomment / add as needed:
-  // {
-  //   icon: "☁️",
-  //   title: "Microsoft Azure Fundamentals",
-  //   description: "Certified in cloud computing fundamentals and Microsoft Azure services.",
-  // },
-  // {
-  //   icon: "🧠",
-  //   title: "Google TensorFlow Program",
-  //   description: "Completed TensorFlow learning program focused on deep learning and AI development.",
-  // },
+  {
+  icon: "🌐",
+  title: "Introduction to Internet of Things (IoT)",
+  description:
+    "Completed a 12-week NPTEL certification covering IoT architecture, sensors, communication protocols, embedded systems, cloud integration, and real-world IoT applications.",
+  link: iotCertificate,
+},
+{
+  icon: "🤖",
+  title: "Oracle Agentic AI Certified Foundations Associate",
+  description:
+    "Earned Oracle's Agentic AI Certified Foundations Associate certification, demonstrating foundational knowledge of Agentic AI concepts, AI agents, large language models (LLMs), prompt engineering, retrieval-augmented generation (RAG), AI workflows, and responsible AI practices.",
+  link: oracleAICertificate,
+},
+  
 ];
 
 export default function CertificationsPage() {

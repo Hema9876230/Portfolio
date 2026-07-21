@@ -33,7 +33,7 @@ export default function Achievement() {
       icon: "🎯",
       title: "Extracurricular",
       description:
-        "Clubs, volunteering, leadership roles, and activities outside academics.",
+        "Volunteering, leadership roles, and activities outside academics.",
       count: "View all",
       path: "/extracurricular",
     },

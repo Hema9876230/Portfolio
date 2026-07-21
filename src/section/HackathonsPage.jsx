@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import PageShell from "./PageShell";
 import hacksagon from "../assets/hacksagon.jpeg";
-
+import sparkathonCertificate from "../assets/sparkthon.jpeg";
+import hacknova from "../assets/hacknova.jpeg";
+import buildathonCertificate from "../assets/buildathon.jpeg";
 const hackathons = [
   {
     icon: "🚀",
@@ -21,7 +23,22 @@ const hackathons = [
     title: "Hacknova 2026 - 3rd Runner Up",
     description:
       "Won 3rd Runner Up at Hacknova 2026, organized by Learning Education Hub, Bhopal. Developed HealthUp, an AI-powered health monitoring system and diet plan generator.",
-  },
+    link:hacknova,
+    },
+  {
+  icon: "🛒",
+  title: "Walmart Sparkathon",
+  description:
+    "Participated in Walmart Global Tech's Sparkathon, an open innovation challenge focused on solving real-world business problems through technology. Collaborated on innovative solutions, enhanced problem-solving skills, and gained experience in ideation, teamwork, and software development under a competitive environment.",
+  link: sparkathonCertificate,
+},
+{
+  icon: "🚀",
+  title: "Global AI Buildathon 2025",
+  description:
+    "Participated in the Global AI Buildathon 2025 organized by Girls Leading Tech, developing AI/ML solutions aligned with the United Nations Sustainable Development Goals (SDGs). Strengthened skills in artificial intelligence, problem-solving, innovation, teamwork, and sustainable technology development.",
+  link: buildathonCertificate,
+},
 ];
 
 export default function HackathonsPage() {
