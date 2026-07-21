@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import PageShell from "./PageShell";
 import dbmsCertificate from "../assets/dbms-certificate.pdf";
 import nptelCertificate from "../assets/Pythondatascience.pdf";
-import iotCertificate from "../assets/iot.pdf";
+import iotCertificate from "../assets/Iot.pdf";
 import oracleAICertificate from "../assets/eCertificate.pdf";
 const certifications = [
   {
