@@ -1,10 +1,66 @@
 @import "tailwindcss";
 
 
+/* =========================================
+   GLOBAL RESET
+========================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  min-height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  background: #000;
+
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100%;
+  min-height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  background: #000;
+  color: white;
+
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+
+  margin: 0;
+  padding: 0;
+
+  background: #000;
+}
+
+
+/* =========================================
+   GRADIENT BACKGROUND ANIMATION
+========================================= */
+
 @keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .animate-gradient {
@@ -12,56 +68,158 @@
   animation: gradientBG 10s ease infinite;
 }
 
+
+/* =========================================
+   ANIMATED GRADIENT UTILITY
+========================================= */
+
 @layer utilities {
+
   .animated-gradient {
-    background: linear-gradient(-45deg, #302b63, #00bf8f, #1CD8D2);
+    background: linear-gradient(
+      -45deg,
+      #302b63,
+      #00bf8f,
+      #1cd8d2
+    );
+
     background-size: 400% 400%;
+
     animation: gradientShift 12s ease infinite;
   }
 
+
   @keyframes gradientShift {
+
     0% {
       background-position: 0% 50%;
     }
+
     50% {
       background-position: 100% 50%;
     }
+
     100% {
       background-position: 0% 50%;
     }
+
   }
+
 }
 
-/* Delay utilities for staggered animations */
-.delay-200 { transition-delay: 200ms; }
-.delay-300 { transition-delay: 300ms; }
-.delay-400 { transition-delay: 400ms; }
 
+/* =========================================
+   TRANSITION DELAYS
+========================================= */
+
+.delay-200 {
+  transition-delay: 200ms;
+}
+
+.delay-300 {
+  transition-delay: 300ms;
+}
+
+.delay-400 {
+  transition-delay: 400ms;
+}
+
+
+/* =========================================
+   FADE IN UP ANIMATION
+========================================= */
 
 @keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(20px) scale(0.95); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(20px)
+      scale(0.95);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
 }
 
 .animate-fadeInUp {
   animation: fadeInUp 0.8s ease forwards;
+
   opacity: 0;
 }
 
+
+/* =========================================
+   FLOATING CARD ANIMATION
+========================================= */
+
 @keyframes floating {
-  0% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-8px) rotate(0.5deg); }
-  100% { transform: translateY(0px) rotate(0deg); }
+
+  0% {
+    transform:
+      translateY(0px)
+      rotate(0deg);
+  }
+
+  50% {
+    transform:
+      translateY(-8px)
+      rotate(0.5deg);
+  }
+
+  100% {
+    transform:
+      translateY(0px)
+      rotate(0deg);
+  }
+
 }
 
 .floating-card {
-  animation: floating 4s ease-in-out infinite;
+  animation:
+    floating
+    4s
+    ease-in-out
+    infinite;
 }
 
 
+/* =========================================
+   SECTION DEFAULTS
+========================================= */
+
+section {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
 
 @media (max-width: 640px) {
-  body > *:not(#contact):not(footer) {
-    overflow-x: clip;
+
+  html,
+  body,
+  #root {
+    width: 100%;
+    max-width: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    overflow-x: hidden;
+
+    background: #000;
   }
+
 }

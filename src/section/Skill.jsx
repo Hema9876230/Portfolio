@@ -1,4 +1,5 @@
 import { FaJava, FaReact, FaGitAlt } from "react-icons/fa";
+
 import {
   SiTypescript,
   SiTailwindcss,
@@ -11,12 +12,19 @@ import {
   SiNumpy,
   SiGithub,
 } from "react-icons/si";
+
 import { DiNodejsSmall } from "react-icons/di";
 
 import { motion, useMotionValue } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
+
 export default function Skills() {
+
+  /* ======================================================
+     SKILLS DATA
+  ====================================================== */
+
   const skills = [
     { icon: <FaReact />, name: "React.js" },
     { icon: <DiNodejsSmall />, name: "Node.js" },
@@ -38,9 +46,15 @@ export default function Skills() {
     { icon: <SiGithub />, name: "GitHub" },
   ];
 
-  const repeated = [...skills, ...skills];
+  // Duplicate for seamless infinite scrolling
+  const repeatedSkills = [...skills, ...skills];
 
-  const [dir, setDir] = useState(-1);
+
+  /* ======================================================
+     STATE / REFS
+  ====================================================== */
+
+  const [direction, setDirection] = useState(-1);
   const [active, setActive] = useState(false);
 
   const sectionRef = useRef(null);
@@ -49,180 +63,585 @@ export default function Skills() {
 
   const x = useMotionValue(0);
 
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
 
-    const io = new IntersectionObserver(
+  /* ======================================================
+     DETECT IF SKILLS SECTION IS VISIBLE
+  ====================================================== */
+
+  useEffect(() => {
+
+    const element = sectionRef.current;
+
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
       ([entry]) => {
         setActive(entry.isIntersecting);
       },
-      { threshold: 0.1 }
+      {
+        threshold: 0.1,
+      }
     );
 
-    io.observe(el);
+    observer.observe(element);
 
-    return () => io.disconnect();
+    return () => observer.disconnect();
+
   }, []);
 
+
+  /* ======================================================
+     CHANGE DIRECTION WITH USER SCROLL
+  ====================================================== */
+
   useEffect(() => {
+
     if (!active) return;
 
-    const onWheel = (e) => {
-      setDir(e.deltaY > 0 ? -1 : 1);
-    };
+    const handleWheel = (event) => {
 
-    const onTouchStart = (e) => {
-      touchY.current = e.touches[0].clientY;
-    };
-
-    const onTouchMove = (e) => {
-      if (touchY.current == null) return;
-
-      const delta = e.touches[0].clientY - touchY.current;
-
-      setDir(delta > 0 ? 1 : -1);
-      touchY.current = e.touches[0].clientY;
-    };
-
-    window.addEventListener("wheel", onWheel, { passive: true });
-    window.addEventListener("touchstart", onTouchStart, {
-      passive: true,
-    });
-    window.addEventListener("touchmove", onTouchMove, {
-      passive: true,
-    });
-
-    return () => {
-      window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchmove", onTouchMove);
-    };
-  }, [active]);
-
-  useEffect(() => {
-    let frame;
-    let last = performance.now();
-
-    const SPEED = 80;
-
-    const animate = (now) => {
-      const dt = (now - last) / 1000;
-      last = now;
-
-      let next = x.get() + SPEED * dir * dt;
-
-      const loopWidth =
-        trackRef.current?.scrollWidth / 2 || 0;
-
-      if (loopWidth) {
-        if (next <= -loopWidth) next += loopWidth;
-        if (next >= 0) next -= loopWidth;
+      if (event.deltaY > 0) {
+        setDirection(-1);
+      } else {
+        setDirection(1);
       }
 
-      x.set(next);
-
-      frame = requestAnimationFrame(animate);
     };
 
-    frame = requestAnimationFrame(animate);
 
-    return () => cancelAnimationFrame(frame);
-  }, [dir, x]);
+    const handleTouchStart = (event) => {
+
+      touchY.current =
+        event.touches[0].clientY;
+
+    };
+
+
+    const handleTouchMove = (event) => {
+
+      if (touchY.current === null) return;
+
+      const currentY =
+        event.touches[0].clientY;
+
+      const delta =
+        currentY - touchY.current;
+
+      if (delta > 0) {
+        setDirection(1);
+      } else {
+        setDirection(-1);
+      }
+
+      touchY.current = currentY;
+
+    };
+
+
+    window.addEventListener(
+      "wheel",
+      handleWheel,
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "touchstart",
+      handleTouchStart,
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "touchmove",
+      handleTouchMove,
+      { passive: true }
+    );
+
+
+    return () => {
+
+      window.removeEventListener(
+        "wheel",
+        handleWheel
+      );
+
+      window.removeEventListener(
+        "touchstart",
+        handleTouchStart
+      );
+
+      window.removeEventListener(
+        "touchmove",
+        handleTouchMove
+      );
+
+    };
+
+  }, [active]);
+
+
+  /* ======================================================
+     INFINITE MARQUEE ANIMATION
+  ====================================================== */
+
+  useEffect(() => {
+
+    let animationFrame;
+
+    let lastTime =
+      performance.now();
+
+    const SPEED = 55;
+
+
+    const animate = (currentTime) => {
+
+      const deltaTime =
+        (currentTime - lastTime) / 1000;
+
+      lastTime = currentTime;
+
+
+      let nextPosition =
+        x.get() +
+        SPEED *
+        direction *
+        deltaTime;
+
+
+      const track =
+        trackRef.current;
+
+
+      if (track) {
+
+        const loopWidth =
+          track.scrollWidth / 2;
+
+
+        if (loopWidth > 0) {
+
+          if (
+            nextPosition <=
+            -loopWidth
+          ) {
+            nextPosition += loopWidth;
+          }
+
+
+          if (
+            nextPosition >= 0
+          ) {
+            nextPosition -= loopWidth;
+          }
+
+        }
+
+      }
+
+
+      x.set(nextPosition);
+
+
+      animationFrame =
+        requestAnimationFrame(
+          animate
+        );
+
+    };
+
+
+    animationFrame =
+      requestAnimationFrame(
+        animate
+      );
+
+
+    return () =>
+      cancelAnimationFrame(
+        animationFrame
+      );
+
+  }, [direction, x]);
+
+
+  /* ======================================================
+     UI
+  ====================================================== */
 
   return (
     <section
       id="skills"
       ref={sectionRef}
-      className="w-full py-20 bg-black text-white overflow-hidden relative"
+      className="
+        relative
+        w-full
+
+        m-0
+
+        bg-black
+        text-white
+
+        overflow-hidden
+
+        pt-12
+        sm:pt-16
+        lg:pt-20
+
+        pb-6
+        sm:pb-8
+        lg:pb-10
+      "
     >
-      {/* Background Glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute top-1/4 left-0
-          w-[300px] h-[300px]
-          rounded-full
-          bg-gradient-to-r
-          from-[#302b63]
-          via-[#00bf8f]
-          to-[#1cd8d2]
-          opacity-20
-          blur-[120px]"
-        />
+
+      {/* ==================================================
+          BACKGROUND GLOW
+      ================================================== */}
+
+      <div
+        className="
+          absolute
+          inset-0
+          overflow-hidden
+          pointer-events-none
+        "
+      >
+
+        {/* LEFT GLOW */}
 
         <div
-          className="absolute bottom-1/4 right-0
-          w-[300px] h-[300px]
-          rounded-full
-          bg-gradient-to-r
-          from-[#302b63]
-          via-[#00bf8f]
-          to-[#1cd8d2]
-          opacity-20
-          blur-[120px]"
+          className="
+            absolute
+
+            top-1/4
+            -left-20
+
+            w-[220px]
+            h-[220px]
+
+            sm:w-[300px]
+            sm:h-[300px]
+
+            rounded-full
+
+            bg-gradient-to-r
+            from-[#302b63]
+            via-[#00bf8f]
+            to-[#1cd8d2]
+
+            opacity-20
+
+            blur-[100px]
+            sm:blur-[120px]
+          "
         />
+
+
+        {/* RIGHT GLOW */}
+
+        <div
+          className="
+            absolute
+
+            bottom-0
+            -right-20
+
+            w-[220px]
+            h-[220px]
+
+            sm:w-[300px]
+            sm:h-[300px]
+
+            rounded-full
+
+            bg-gradient-to-r
+            from-[#302b63]
+            via-[#00bf8f]
+            to-[#1cd8d2]
+
+            opacity-20
+
+            blur-[100px]
+            sm:blur-[120px]
+          "
+        />
+
       </div>
 
-      <div className="relative z-10">
+
+      {/* ==================================================
+          CONTENT
+      ================================================== */}
+
+      <div
+        className="
+          relative
+          z-10
+          w-full
+        "
+      >
+
+        {/* TITLE */}
+
         <motion.h2
-          className="text-center text-4xl sm:text-5xl font-bold
-          bg-clip-text text-transparent
-          bg-gradient-to-r
-          from-[#1cd8d2]
-          via-[#00bf8f]
-          to-[#302b63]"
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          className="
+            text-center
+
+            text-3xl
+            sm:text-4xl
+            md:text-5xl
+
+            font-bold
+
+            px-4
+
+            bg-clip-text
+            text-transparent
+
+            bg-gradient-to-r
+            from-[#1cd8d2]
+            via-[#00bf8f]
+            to-[#302b63]
+          "
+          initial={{
+            opacity: 0,
+            y: -25,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.3,
+          }}
+          transition={{
+            duration: 0.5,
+          }}
         >
           Technical Skills
         </motion.h2>
 
+
+        {/* DESCRIPTION */}
+
         <motion.p
-          className="text-center mt-4 mb-12 text-white/80 max-w-2xl mx-auto px-4"
-          initial={{ opacity: 0, y: -15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          className="
+            text-center
+
+            max-w-2xl
+
+            mx-auto
+
+            mt-4
+
+            mb-7
+            sm:mb-9
+
+            px-5
+
+            text-sm
+            sm:text-base
+
+            leading-6
+            sm:leading-7
+
+            text-white/80
+          "
+          initial={{
+            opacity: 0,
+            y: -15,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.3,
+          }}
+          transition={{
+            duration: 0.5,
+            delay: 0.1,
+          }}
         >
-          Building intelligent applications with modern web technologies,
-          AI/ML tools, and scalable backend systems.
+          Building intelligent applications with modern web
+          technologies, AI/ML tools, and scalable backend
+          systems.
         </motion.p>
 
-        <div className="relative w-full overflow-hidden">
+
+        {/* ==================================================
+            SKILLS MARQUEE
+        ================================================== */}
+
+        <div
+          className="
+            relative
+            w-full
+            overflow-hidden
+          "
+        >
+
+          {/* LEFT FADE */}
+
+          <div
+            className="
+              absolute
+              left-0
+              top-0
+              bottom-0
+
+              z-20
+
+              w-5
+              sm:w-14
+
+              pointer-events-none
+
+              bg-gradient-to-r
+              from-black
+              to-transparent
+            "
+          />
+
+
+          {/* RIGHT FADE */}
+
+          <div
+            className="
+              absolute
+              right-0
+              top-0
+              bottom-0
+
+              z-20
+
+              w-5
+              sm:w-14
+
+              pointer-events-none
+
+              bg-gradient-to-l
+              from-black
+              to-transparent
+            "
+          />
+
+
+          {/* MOVING TRACK */}
+
           <motion.div
             ref={trackRef}
-            className="flex gap-10"
+            className="
+              flex
+              w-max
+
+              gap-4
+              sm:gap-6
+              lg:gap-8
+
+              px-2
+            "
             style={{
               x,
-              whiteSpace: "nowrap",
               willChange: "transform",
             }}
           >
-            {repeated.map((skill, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center
-                min-w-[130px]
-                gap-3
-                p-4
-                rounded-2xl
-                bg-white/5
-                border border-white/10
-                backdrop-blur-md"
-              >
-                <span className="text-6xl text-[#1cd8d2] hover:scale-110 transition-transform duration-300">
-                  {skill.icon}
-                </span>
 
-                <p className="text-sm text-white/90">
-                  {skill.name}
-                </p>
-              </div>
-            ))}
+            {repeatedSkills.map(
+              (skill, index) => (
+
+                <motion.div
+                  key={`${skill.name}-${index}`}
+                  className="
+                    flex
+                    flex-col
+
+                    items-center
+                    justify-center
+
+                    shrink-0
+
+                    min-w-[105px]
+                    h-[115px]
+
+                    sm:min-w-[125px]
+                    sm:h-[135px]
+
+                    lg:min-w-[140px]
+                    lg:h-[150px]
+
+                    gap-2
+                    sm:gap-3
+
+                    p-3
+                    sm:p-4
+
+                    rounded-2xl
+
+                    bg-white/5
+
+                    border
+                    border-white/10
+
+                    backdrop-blur-md
+                  "
+                  whileHover={{
+                    y: -4,
+                    scale: 1.03,
+                  }}
+                  transition={{
+                    duration: 0.2,
+                  }}
+                >
+
+                  {/* ICON */}
+
+                  <span
+                    className="
+                      flex
+                      items-center
+                      justify-center
+
+                      text-4xl
+                      sm:text-5xl
+                      lg:text-6xl
+
+                      text-[#1cd8d2]
+                    "
+                  >
+                    {skill.icon}
+                  </span>
+
+
+                  {/* SKILL NAME */}
+
+                  <p
+                    className="
+                      text-xs
+                      sm:text-sm
+
+                      text-center
+
+                      text-white/90
+
+                      whitespace-nowrap
+                    "
+                  >
+                    {skill.name}
+                  </p>
+
+                </motion.div>
+
+              )
+            )}
+
           </motion.div>
+
         </div>
+
       </div>
+
     </section>
   );
 }
-

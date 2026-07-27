@@ -1,9 +1,7 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-// Shared shell for the Hackathons / Certifications / Achievements /
-// Extracurricular detail pages. Keeps the background glow, back button,
-// and heading style identical to the main Achievement section.
+
 export default function PageShell({ title, subtitle, children }) {
   const navigate = useNavigate();
 
