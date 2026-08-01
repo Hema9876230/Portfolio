@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import avatar from "../assets/avator.png";
-import { FaXTwitter, FaLinkedinIn, FaGithub } from "react-icons/fa6";
+import { FaXTwitter, FaLinkedinIn, FaGithub ,FaCode  } from "react-icons/fa6";
 import { FaYoutube, FaInstagram } from "react-icons/fa6";
 import ParticleBackground from "../components/ParticlesBackground";
 import Resume from "../assets/Resume.pdf";
@@ -11,6 +11,7 @@ const socials = [
   { Icon: FaXTwitter, label: "X", href: "https://x.com/_hemarani" },
   { Icon: FaLinkedinIn, label: "LinkedIn", href: "https://www.linkedin.com/in/hema-rani513/" },
   { Icon: FaGithub, label: "GitHub", href: "https://github.com/Hema9876230" },
+  { Icon: FaCode, label: "Codolio", href: "https://codolio.com/profile/hemarani" }
 ];
 
 
